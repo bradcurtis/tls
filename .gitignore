@@ -3,3 +3,8 @@ tls.log
 oldCode/domainlist.csv
 uniqueDomains.csv
 domainlist.csv
+emailexport.csv
+uniqueDomains.csv.old
+tls.log.old
+domainlist.csv.old
+uniqueEmails.csv
