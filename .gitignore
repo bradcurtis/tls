@@ -8,3 +8,5 @@ uniqueDomains.csv.old
 tls.log.old
 domainlist.csv.old
 uniqueEmails.csv
+emaildomainlist.csv
+error.log

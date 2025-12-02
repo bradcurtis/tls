@@ -1,22 +1,45 @@
+
+Import-Module .\module\AppConfig.psm1 -Force
+
 . "$PSScriptRoot\extractdomain.ps1"
 . "$PSScriptRoot\tlscheckweb.ps1"
 . "$PSScriptRoot\updatecsv.ps1"
 . "$PSScriptRoot\logger.ps1"
+. "$PSScriptRoot\DomainMxUpdater.ps1"
 
 
+
+$config = Get-AppConfig -FilePath ".\app.properties"
 # Initialize logger
- $logger = [LoggerSingleton]::GetLogger("./tls.log","ERROR")
+
+Write-Host "Server host: $($config.Get('log.level'))"
+ $logger = [LoggerSingleton]::GetLogger("$($config.Get('log.file'))","$($config.Get('log.level'))")
+
 
 # comment out this line to place logger in debug mode
 # $logger = [LoggerSingleton]::GetLogger("./tls.log")
 $logger.Info("CSV update started","Main")
 
+$logger.Error("test","Main")
+
+
 
 # $csv = ".\tlsexport.csv"
 $csv = ".\emailexport.csv"
 
-$domains = Get-UniqueDomainsFromCsv -CsvPath $csv
+# Create the updater instance, passing the logger
 
+
+$mx = [DomainMxUpdater]::new("$($config.Get('file.emaildomains'))", $logger)
+
+# Run the update
+$mx.UpdateCsv()
+
+$logger.Info("CSV update finished", "Main")
+
+<#
+
+$domains = Get-UniqueDomainsFromCsv -CsvPath $csv
 foreach($web in $domains){
 
     
@@ -27,3 +50,4 @@ foreach($web in $domains){
     Add-DomainTlsRecord -CsvPath ".\domainlist.csv" -DomainName $web -Tls $tlsCheck
 
 }
+#>

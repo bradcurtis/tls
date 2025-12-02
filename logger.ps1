@@ -57,6 +57,10 @@ class LoggerSingleton {
         $this.Write($Message, "WARNING", $FunctionName)
     }
 
+       [void] Warn([string]$Message, [string]$FunctionName="Global") {
+        $this.Write($Message, "WARNING", $FunctionName)
+    }
+
     [void] Error([string]$Message, [string]$FunctionName="Global") {
         $this.Write($Message, "ERROR", $FunctionName)
     }
