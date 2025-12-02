@@ -6,6 +6,7 @@ Import-Module .\module\AppConfig.psm1 -Force
 . "$PSScriptRoot\updatecsv.ps1"
 . "$PSScriptRoot\logger.ps1"
 . "$PSScriptRoot\DomainMxUpdater.ps1"
+. "$PSScriptRoot\ThirdPartyUpdater.ps1"
 
 
 
@@ -30,14 +31,20 @@ $csv = ".\emailexport.csv"
 # Create the updater instance, passing the logger
 
 
-$mx = [DomainMxUpdater]::new("$($config.Get('file.emaildomains'))", $logger)
+# Create updater instance
+$updater = [ThirdPartyUpdater]::new("$($config.Get('file.emaildomains'))", $logger)
 
-# Run the update
-$mx.UpdateCsv()
+# Update CSV
+$updater.UpdateCsv()
 
 $logger.Info("CSV update finished", "Main")
 
 <#
+
+$mx = [DomainMxUpdater]::new("$($config.Get('file.emaildomains'))", $logger)
+
+# Run the update
+$mx.UpdateCsv()
 
 $domains = Get-UniqueDomainsFromCsv -CsvPath $csv
 foreach($web in $domains){
