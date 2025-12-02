@@ -26,7 +26,7 @@ $logger.Error("test","Main")
 
 
 # $csv = ".\tlsexport.csv"
-$csv = ".\emailexport.csv"
+#$csv = ".\emailexport.csv"
 
 # Create the updater instance, passing the logger
 
