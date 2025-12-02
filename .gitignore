@@ -10,3 +10,5 @@ domainlist.csv.old
 uniqueEmails.csv
 emaildomainlist.csv
 error.log
+domains.csv
+unique_emails.csv
