@@ -8,6 +8,7 @@ Import-Module .\module\AppConfig.psm1 -Force
 . "$PSScriptRoot\DomainMxUpdater.ps1"
 . "$PSScriptRoot\ThirdPartyUpdater.ps1"
 . "$PSScriptRoot\DomainTlsCsvWriter.ps1"
+. "$PSScriptRoot\DomainEmailEnricher.ps1"
 
 
 
@@ -47,6 +48,7 @@ $mx = [DomainMxUpdater]::new("$($config.Get('file.emaildomains'))", $logger)
 $mx.UpdateCsv()
 #>
 
+<#
 # Create TlsChecker instance with logger and config
 $tlsChecker = [TlsChecker]::new($logger, $config)
 
@@ -69,3 +71,14 @@ foreach($web in $domains){
     $writer.AddRecord($config.Get('file.tlsoutput'), $web, $result)
 
 }
+
+#>
+
+# Create the DomainEmailEnricher instance, passing the logger
+$logger.Info("Enricher   $($config.Get('file.emailexport'))","Main")
+$logger.Info("Enricher $($config.Get('file.emaildomains'))","Main")
+
+$enricher = [DomainEmailEnricher]::new( $logger,"$($config.Get('file.emaildomains'))","$($config.Get('file.emailexport'))")
+
+# Run it
+$enricher.ProcessFiles()

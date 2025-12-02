@@ -22,7 +22,7 @@ class DomainExtractor {
         $this.Logger.Info("CSV update started","extractdomain")
 
         if (-not (Test-Path $CsvPath)) {
-            $this.Logger.Error("CSV file not found: $CsvPath","extractdomain")
+            $this.Logger.Info("CSV file not found: $CsvPath","extractdomain")
             return [System.Collections.ArrayList]::new()
         }
 
