@@ -30,7 +30,6 @@ tls/
 ├── logger.ps1
 ├── DomainExtractor.ps1
 ├── DomainMxUpdater.ps1
-├── ThirdPartyUpdater.ps1
 ├── DomainTlsCsvWriter.ps1
 ├── TlsChecker.ps1
 ├── DomainEmailEnricher.ps1
